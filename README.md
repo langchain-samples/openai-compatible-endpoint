@@ -14,6 +14,8 @@ openai-compatible-endpoint/
 ├── models.py            # Pydantic models for API requests
 ├── utils.py             # Utility functions for working with responses
 ├── pyproject.toml       # Project configuration and dependencies
+├── Dockerfile           # Docker configuration
+├── .dockerignore        # Files to exclude from Docker build
 ├── hooks/
 │   ├── __init__.py      # Hook system (register_post_hook, apply_post_hooks)
 │   └── chart.py         # Chart generation hook
@@ -69,6 +71,29 @@ python main.py
 ```
 
 The server will start on `http://localhost:8000`
+
+### Running with Docker
+
+1. **Build the Docker image:**
+   ```bash
+   docker build -t openai-compatible-endpoint .
+   ```
+
+2. **Run the container:**
+   ```bash
+   docker run -p 8000:8000 \
+     -e OPENAI_API_KEY=your-api-key-here \
+     openai-compatible-endpoint
+   ```
+
+   Or use a `.env` file:
+   ```bash
+   docker run -p 8000:8000 \
+     --env-file .env \
+     openai-compatible-endpoint
+   ```
+
+3. **The server will be available at:** `http://localhost:8000`
 
 ### Testing the Server
 
